@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAGIC MADNESS VR</title>
+
+  <!-- globální CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- CSS jen pro tuto stránku -->
+  <style>
+    /* nadpis + badge */
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .title-row h1 {
+      margin: 0;
+    }
+
+    .gp-badge {
+      height: 48px;
+      width: auto;
+    }
+
+    @media (max-width: 600px) {
+      .title-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* hlavní layout */
+    .project-layout {
+      display: flex;
+      gap: 40px;
+      margin-top: 32px;
+      align-items: center; /* vertikální centrování na desktopu */
+    }
+
+    .project-text {
+      flex: 1;
+      max-width: 520px;
+    }
+
+    /* grid obrázků */
+    .project-images {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .project-images img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* mobil */
+    @media (max-width: 900px) {
+      .project-layout {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .project-text {
+        max-width: none;
+      }
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 6px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 32px;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="top-nav">
+    <a href="index.html#portfolio">← BACK</a>
+  </nav>
+
+  <section class="section bg-portfolio">
+    <div class="panel panel-narrow">
+
+      <!-- NADPIS + GOOGLE PLAY -->
+      <div class="title-row">
+        <h1>COSMIC MUSHROOMS</h1>
+
+        <a href="https://store.steampowered.com/app/3549310/Magic_Madness_VR/"
+           target="_blank" rel="noopener">
+          <img
+            src="img/SLogo.jpg"
+            alt="Get it on Google Play"
+            class="gp-badge">
+        </a>
+      </div>
+
+      <!-- OBSAH -->
+      <div class="project-layout">
+
+        <!-- OBRÁZKY -->
+        <div class="project-images">
+          <img src="img/portfolio/CosmicA.jpg" alt="Screenshot 1" data-lightbox>
+          <img src="img/portfolio/CosmicB.jpg" alt="Screenshot 2" data-lightbox>
+        </div>
+
+        <!-- TEXT -->
+        <div class="project-text">
+          <p>
+ 		•Level Design 
+ 		•Envirnment
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <img src="" alt="Preview" id="lightboxImg">
+  </div>
+
+  <!-- externí JS -->
+  <script src="lightbox.js" defer></script>
+
+</body>
+</html>

@@ -62,7 +62,7 @@ nav a:hover {
 .bg-home { background-image: url('img/0_1B.jpg'); }
 .bg-portfolio { background-image: url('img/0_22.jpg'); }
 .bg-skills { background-image: url('img/0_0.jpg'); }
-.bg-contact { background-image: url('img/bg_contact.png'); }
+.bg-contact { background-image: url('img/0_3.jpg'); }
 
 /* CLOUDS — FINAL */
 .cloud {
@@ -167,4 +167,65 @@ nav a:hover {
   .cloud {
     width: clamp(220px, 70vw, 420px);
   }
+
 }
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.title-row h1 {
+  margin: 0;
+}
+
+/* přebití globálních img stylů */
+.title-row .gp-badge {
+  height:  45px;
+  width: auto;
+  max-width: none;
+}
+
+
+//////////////////////
+
+/* layout celé sekce */
+.project-layout {
+  display: flex;
+  gap: 40px;
+  margin-top: 32px;
+  align-items: flex-start;
+}
+
+/* text */
+.project-text {
+  flex: 1;
+  max-width: 520px;
+}
+
+/* mřížka obrázků (2×2) */
+.project-images {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.project-images img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+/* mobil */
+@media (max-width: 900px) {
+  .project-layout {
+    flex-direction: column;
+  }
+
+  .project-text {
+    max-width: none;
+  }
+}
+
