@@ -230,55 +230,26 @@ nav a:hover {
 }
 
 
-/* --- Unified layout fixes --- */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-.content-box,
-.text-frame,
-.frame {
-    max-width: 1100px;
-    width: 100%;
-    margin: 0 auto;
-}
-
-/* Remove unintended top offsets */
-.content-box,
-.text-frame,
-.frame {
-    margin-top: 0;
-    padding-top: 0;
-}
-
-/* Image inside frame should never overflow */
-.frame img,
-.text-frame img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* Buttons alignment unified to right */
-.store-buttons,
-.store-links {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-/* Mobile menu overflow fix */
+/* === MOBILE FRAME FIXES (targeted) === */
 @media (max-width: 768px) {
-    nav,
-    .menu,
-    .navigation {
-        padding: 0 16px;
+
+    body {
+        overflow-x: hidden;
     }
 
-    nav a,
-    .menu a {
-        padding: 8px 0;
+    .frame,
+    .text-frame,
+    .content-box,
+    .contact-frame {
+        width: calc(100% - 32px);
+        max-width: 100%;
+        margin: 0 auto 24px auto;
+        padding: 16px;
+        transform: none;
+    }
+
+    section {
+        padding-top: 24px;
+        padding-bottom: 24px;
     }
 }
