@@ -230,26 +230,22 @@ nav a:hover {
 }
 
 
-/* === MOBILE FRAME FIXES (targeted) === */
+/* === CONTACT MOBILE FIX (targeted) === */
+#contact .contact-frame {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+#contact img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 @media (max-width: 768px) {
-
-    body {
-        overflow-x: hidden;
-    }
-
-    .frame,
-    .text-frame,
-    .content-box,
-    .contact-frame {
+    #contact .contact-frame {
         width: calc(100% - 32px);
-        max-width: 100%;
-        margin: 0 auto 24px auto;
+        margin: 0 auto;
         padding: 16px;
-        transform: none;
-    }
-
-    section {
-        padding-top: 24px;
-        padding-bottom: 24px;
     }
 }
