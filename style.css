@@ -1,5 +1,6 @@
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
 }
 
 body {
@@ -46,11 +47,22 @@ nav a:hover {
   background-position: center;
   position: relative;
   overflow: hidden;
+  scroll-snap-align: start;
+}
+
+#portfolio {
+  padding-top: 70px;
 }
 
 /* Parallax desktop only */
 .bg-home, .bg-portfolio, .bg-skills {
   background-attachment: fixed;
+}
+
+/* Enhanced parallax for portfolio - prevent background scroll within section */
+#portfolio.section {
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .bg-home { background-image: url('img/0_1B.jpg'); }
@@ -229,12 +241,14 @@ nav a:hover {
 
   nav {
     padding: 10px 0;
+    display: flex;
+    justify-content: space-evenly;
   }
 
   nav a {
-    font-size: 16px;
-    margin: 0 6px;
-    padding: 6px 8px;
+    font-size: 36px;
+    margin: 0;
+    padding: 14px 0;
   }
 
   /* PANEL - consistent 16px margin on mobile */
