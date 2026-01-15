@@ -6,7 +6,7 @@ let isScrolling = false;
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 
-if (hamburger) {
+if (hamburger && navMenu) {
   hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
   });
@@ -23,7 +23,7 @@ if (hamburger) {
 function updateActiveLink() {
   const scrollPosition = window.scrollY + 200;
   
-  sections.forEach((section, index) => {
+  sections.forEach((section) => {
     const sectionTop = section.offsetTop;
     const sectionBottom = sectionTop + section.offsetHeight;
     const sectionId = section.getAttribute('id');
@@ -47,6 +47,7 @@ function updateActiveLink() {
 window.addEventListener('scroll', updateActiveLink);
 window.addEventListener('load', updateActiveLink);
 
+// Smooth scrolling with snap
 window.addEventListener('wheel', (e) => {
   e.preventDefault();
   if (isScrolling) return;
