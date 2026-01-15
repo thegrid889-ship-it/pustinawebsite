@@ -33,6 +33,11 @@ function updateActiveLink() {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${sectionId}`) {
           link.classList.add('active');
+          // Update current page text on mobile
+          const currentPageEl = document.getElementById('currentPage');
+          if (currentPageEl) {
+            currentPageEl.textContent = link.textContent;
+          }
         }
       });
     }

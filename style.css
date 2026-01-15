@@ -16,18 +16,23 @@ nav {
   top: 0;
   width: 100%;
   background: #000c;
-  padding: 12px 0;
+  padding: 15px 0;
   text-align: center;
   z-index: 1000;
   white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
-  padding: 10px;
+  padding: 0;
   gap: 5px;
+  position: absolute;
+  left: 20px;
 }
 
 .hamburger span {
@@ -35,6 +40,13 @@ nav {
   height: 3px;
   background: #f5d76e;
   transition: 0.3s;
+}
+
+.current-page {
+  display: none;
+  color: #f5d76e;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .nav-menu {
@@ -51,6 +63,7 @@ nav a {
   padding: 8px 10px;
   display: inline-block;
   transition: all 0.3s;
+  font-weight: normal;
 }
 
 nav a:hover {
@@ -269,36 +282,50 @@ nav a.active {
 
   .hamburger {
     display: flex;
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+  }
+
+  .current-page {
+    display: block;
   }
 
   nav {
     position: fixed;
+    padding: 15px 0;
   }
 
-  .nav-menu {
+  /* Only apply sliding menu to index page */
+  body:has(#home) .nav-menu {
     position: fixed;
     left: -100%;
-    top: 60px;
+    top: 51px;
     flex-direction: column;
-    background: #000e;
+    background: #000b;
     width: 100%;
     text-align: center;
     transition: 0.3s;
     padding: 20px 0;
   }
 
-  .nav-menu.active {
+  body:has(#home) .nav-menu.active {
     left: 0;
   }
 
-  nav a {
+  /* Large font only for index page menu */
+  body:has(#home) nav a {
     font-size: 24px;
     margin: 8px 0;
     padding: 12px 0;
+  }
+
+  /* Detail pages - show BACK link, hide hamburger functionality */
+  body:not(:has(#home)) .hamburger {
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  body:not(:has(#home)) .nav-menu {
+    position: static;
+    display: flex;
   }
 
   /* PANEL - consistent 16px margin on mobile */
