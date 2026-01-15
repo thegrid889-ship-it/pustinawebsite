@@ -53,18 +53,12 @@ nav a:hover {
   background-attachment: fixed;
 }
 
-@media (max-width: 768px) {
-  .bg-home, .bg-portfolio, .bg-skills {
-    background-attachment: scroll;
-  }
-}
-
 .bg-home { background-image: url('img/0_1B.jpg'); }
 .bg-portfolio { background-image: url('img/0_22.jpg'); }
 .bg-skills { background-image: url('img/0_0.jpg'); }
 .bg-contact { background-image: url('img/0_3.jpg'); }
 
-/* CLOUDS — FINAL */
+/* CLOUDS */
 .cloud {
   position: absolute;
   width: clamp(260px, 45vw, 520px);
@@ -95,17 +89,64 @@ nav a:hover {
   to   { transform: translateX(120%); }
 }
 
-/* Panels */
+/* PANEL - UNIFIED FOR ALL PAGES */
 .panel {
   background: #000a;
   border: 4px solid #3fa9f5;
   padding: 30px;
   max-width: 900px;
-  margin: 20px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
   z-index: 2;
 }
 
-/* Projects */
+/* Title row with badge (for detail pages) */
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.title-row h1 {
+  margin: 0;
+}
+
+.gp-badge {
+  height: 48px;
+  width: auto;
+}
+
+/* Project layout (for detail pages) */
+.project-layout {
+  display: flex;
+  gap: 40px;
+  margin-top: 32px;
+  align-items: center;
+}
+
+.project-text {
+  flex: 1;
+  max-width: 520px;
+}
+
+/* Project images grid (for detail pages) */
+.project-images {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.project-images img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Projects (for index.html portfolio section) */
 .project {
   display: flex;
   gap: 20px;
@@ -135,15 +176,57 @@ nav a:hover {
   color: #000;
 }
 
-/* Contact */
+/* Contact layout */
 .contact-layout {
   display: flex;
   gap: 20px;
   align-items: center;
 }
 
-/* Mobile */
+.contact-layout img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 6px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-size: 32px;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* MOBILE - UNIFIED */
 @media (max-width: 768px) {
+  /* Disable parallax on mobile */
+  .bg-home, .bg-portfolio, .bg-skills {
+    background-attachment: scroll;
+  }
+
   nav {
     padding: 10px 0;
   }
@@ -152,6 +235,18 @@ nav a:hover {
     font-size: 16px;
     margin: 0 6px;
     padding: 6px 8px;
+  }
+
+  /* PANEL - consistent 16px margin on mobile */
+  .section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .panel {
+    padding: 20px;
+    margin: 0;
+    max-width: 100%;
   }
 
   .project {
@@ -168,84 +263,19 @@ nav a:hover {
     width: clamp(220px, 70vw, 420px);
   }
 
-}
-.title-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.title-row h1 {
-  margin: 0;
+  .title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
-/* přebití globálních img stylů */
-.title-row .gp-badge {
-  height:  45px;
-  width: auto;
-  max-width: none;
-}
-
-
-//////////////////////
-
-/* layout celé sekce */
-.project-layout {
-  display: flex;
-  gap: 40px;
-  margin-top: 32px;
-  align-items: flex-start;
-}
-
-/* text */
-.project-text {
-  flex: 1;
-  max-width: 520px;
-}
-
-/* mřížka obrázků (2×2) */
-.project-images {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.project-images img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 6px;
-}
-
-/* mobil */
 @media (max-width: 900px) {
   .project-layout {
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .project-text {
     max-width: none;
   }
-}
-
-
-/* === CONTACT MOBILE FIX (targeted) === */
-#contact .contact-frame {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-#contact img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-@media (max-width: 768px) {
-    #contact .contact-frame {
-        width: calc(100% - 32px);
-        margin: 0 auto;
-        padding: 16px;
-    }
 }
