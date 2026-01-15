@@ -22,6 +22,27 @@ nav {
   white-space: nowrap;
 }
 
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+  gap: 5px;
+}
+
+.hamburger span {
+  width: 30px;
+  height: 3px;
+  background: #f5d76e;
+  transition: 0.3s;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 nav a {
   color: #f5d76e;
   margin: 0 8px;
@@ -29,11 +50,18 @@ nav a {
   font-size: 18px;
   padding: 8px 10px;
   display: inline-block;
+  transition: all 0.3s;
 }
 
 nav a:hover {
   color: #fff;
   text-shadow: 0 0 8px #f5d76e;
+}
+
+nav a.active {
+  color: #fff;
+  text-shadow: 0 0 12px #f5d76e;
+  border-bottom: 2px solid #f5d76e;
 }
 
 /* Sections */
@@ -239,18 +267,38 @@ nav a:hover {
     background-attachment: scroll;
   }
 
-  nav {
-    padding: 5px 0;
+  .hamburger {
     display: flex;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  nav {
+    position: fixed;
+  }
+
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 60px;
     flex-direction: column;
-    align-items: center;
-    gap: 2px;
+    background: #000e;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+    padding: 20px 0;
+  }
+
+  .nav-menu.active {
+    left: 0;
   }
 
   nav a {
-    font-size: 27px;
-    margin: 0;
-    padding: 2px 0;
+    font-size: 24px;
+    margin: 8px 0;
+    padding: 12px 0;
   }
 
   /* PANEL - consistent 16px margin on mobile */
