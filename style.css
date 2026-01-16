@@ -277,15 +277,15 @@ body:not(:has(#home)) .current-page {
 
 /* ========== MOBILE ========== */
 @media (max-width: 768px) {
-  /* Disable parallax on mobile */
-  .bg-home, .bg-portfolio, .bg-skills {
-    background-attachment: scroll;
-  }
-
   /* Panel spacing on mobile */
   .section {
     padding-left: 16px;
     padding-right: 16px;
+    padding-top: 50px;
+  }
+
+  #portfolio {
+    padding-top: 40px;
   }
 
   .panel {
@@ -325,7 +325,8 @@ body:not(:has(#home)) .current-page {
 
   /* MOBILE NAVIGATION - INDEX ONLY */
   nav {
-    height: 51px;
+    height: 34px;
+    padding: 0;
   }
 
   body:has(#home) .hamburger {
@@ -339,9 +340,9 @@ body:not(:has(#home)) .current-page {
   body:has(#home) .nav-menu {
     position: fixed;
     left: -100%;
-    top: 51px;
+    top: 34px;
     flex-direction: column;
-    background: #000b;
+    background: #000c;
     width: 100%;
     text-align: center;
     transition: 0.3s;

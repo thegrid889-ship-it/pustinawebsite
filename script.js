@@ -5,11 +5,18 @@ let isScrolling = false;
 // Hamburger menu toggle
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
+const nav = document.querySelector('nav');
 
 if (hamburger && navMenu) {
-  hamburger.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-  });
+  // Make entire nav clickable on mobile (only for index page)
+  if (document.getElementById('home')) {
+    nav.addEventListener('click', (e) => {
+      // Don't toggle if clicking on a link
+      if (!e.target.closest('a')) {
+        navMenu.classList.toggle('active');
+      }
+    });
+  }
 
   // Close menu when clicking on link
   document.querySelectorAll('.nav-menu a').forEach(link => {
