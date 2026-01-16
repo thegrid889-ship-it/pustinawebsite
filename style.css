@@ -284,7 +284,9 @@ body:not(:has(#home)) .current-page {
   }
 
   #portfolio {
-    padding-bottom: 300px;
+    min-height: 100vh;
+    padding-top: 70px;
+    padding-bottom: 200px;
   }
 
   .panel {
