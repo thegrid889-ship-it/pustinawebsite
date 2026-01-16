@@ -95,7 +95,7 @@ nav a.active {
 }
 
 /* Parallax desktop only */
-.bg-home, .bg-portfolio, .bg-skills {
+.bg-home, .bg-portfolio, .bg-skills, .bg-contact {
   background-attachment: fixed;
 }
 
