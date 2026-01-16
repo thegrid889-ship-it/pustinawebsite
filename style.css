@@ -281,11 +281,11 @@ body:not(:has(#home)) .current-page {
   .section {
     padding-left: 16px;
     padding-right: 16px;
-    padding-top: 50px;
+    padding-top: 60px;
   }
 
   #portfolio {
-    padding-top: 40px;
+    padding-top: 50px;
   }
 
   .panel {
@@ -325,7 +325,7 @@ body:not(:has(#home)) .current-page {
 
   /* MOBILE NAVIGATION - INDEX ONLY */
   nav {
-    height: 34px;
+    height: 42px;
     padding: 0;
   }
 
@@ -340,7 +340,7 @@ body:not(:has(#home)) .current-page {
   body:has(#home) .nav-menu {
     position: fixed;
     left: -100%;
-    top: 34px;
+    top: 42px;
     flex-direction: column;
     background: #000c;
     width: 100%;
