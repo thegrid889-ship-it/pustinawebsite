@@ -281,11 +281,10 @@ body:not(:has(#home)) .current-page {
   .section {
     padding-left: 16px;
     padding-right: 16px;
-    padding-top: 60px;
   }
 
   #portfolio {
-    padding-top: 50px;
+    padding-bottom: 300px;
   }
 
   .panel {
@@ -325,7 +324,7 @@ body:not(:has(#home)) .current-page {
 
   /* MOBILE NAVIGATION - INDEX ONLY */
   nav {
-    height: 42px;
+    height: 46px;
     padding: 0;
   }
 
@@ -335,12 +334,19 @@ body:not(:has(#home)) .current-page {
 
   body:has(#home) .current-page {
     display: block;
+    transition: opacity 0.3s;
+  }
+
+  /* Hide current page when menu is active */
+  body:has(#home) .nav-menu.active ~ .current-page {
+    opacity: 0;
+    pointer-events: none;
   }
 
   body:has(#home) .nav-menu {
     position: fixed;
     left: -100%;
-    top: 42px;
+    top: 46px;
     flex-direction: column;
     background: #000c;
     width: 100%;
