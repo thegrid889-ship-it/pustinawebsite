@@ -147,6 +147,46 @@ nav a.active {
   z-index: 2;
 }
 
+/* ========== PAC-MAN RUNNER ========== */
+#homePanel {
+  position: relative;
+}
+
+.pacman {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  z-index: 6;
+  pointer-events: none;
+  will-change: transform;
+  filter: drop-shadow(0 0 3px rgba(0,0,0,.6));
+}
+
+.pacman svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.coin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  z-index: 5;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px rgba(255,217,63,.7));
+}
+
+.coin svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 /* ========== TITLE ROW (detail pages) ========== */
 .title-row {
   display: flex;
@@ -231,6 +271,18 @@ nav a.active {
 .contact-layout img {
   max-width: 100%;
   height: auto;
+  display: block;
+}
+
+.linkedin-link {
+  display: block;
+  margin: 16px 0;
+}
+
+.linkedin-icon {
+  width: 67px;
+  height: auto;
+  max-width: none;
   display: block;
 }
 
