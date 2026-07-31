@@ -173,7 +173,10 @@ async function initPacman() {
   panel.appendChild(pacman);
   panel.appendChild(coin);
 
-  const TRACK_OFFSET = 14; // how far outside the panel border the track runs
+  const MOBILE_BREAKPOINT = 768;
+  const DESKTOP_TRACK_OFFSET = 14; // outside the panel border
+  const MOBILE_TRACK_OFFSET = -20; // inside the panel border, so it can't run off-screen
+  let TRACK_OFFSET = DESKTOP_TRACK_OFFSET;
   const PAC_R = 18;
   const COIN_R = 10;
   const SPEED = 90; // px per second
@@ -191,6 +194,7 @@ async function initPacman() {
   let lastTime = null;
 
   function computeDims() {
+    TRACK_OFFSET = window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_TRACK_OFFSET : DESKTOP_TRACK_OFFSET;
     w = panel.offsetWidth + TRACK_OFFSET * 2;
     h = panel.offsetHeight + TRACK_OFFSET * 2;
     perim = 2 * (w + h);
