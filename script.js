@@ -194,9 +194,15 @@ async function initPacman() {
   let lastTime = null;
 
   function computeDims() {
-    TRACK_OFFSET = window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_TRACK_OFFSET : DESKTOP_TRACK_OFFSET;
-    w = panel.offsetWidth + TRACK_OFFSET * 2;
-    h = panel.offsetHeight + TRACK_OFFSET * 2;
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+    TRACK_OFFSET = isMobile ? MOBILE_TRACK_OFFSET : DESKTOP_TRACK_OFFSET;
+    // Pac-Man is positioned relative to the panel's padding edge (border excluded).
+    // On mobile the track must stay inside that same box, so use clientWidth/Height
+    // (no border) there; offsetWidth/Height (with border) keeps desktop's outside-the-frame math unchanged.
+    const panelW = isMobile ? panel.clientWidth : panel.offsetWidth;
+    const panelH = isMobile ? panel.clientHeight : panel.offsetHeight;
+    w = panelW + TRACK_OFFSET * 2;
+    h = panelH + TRACK_OFFSET * 2;
     perim = 2 * (w + h);
   }
 
