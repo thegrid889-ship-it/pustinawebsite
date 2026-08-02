@@ -22,7 +22,8 @@
   </nav>
 
   <section class="section bg-portfolio">
-    <div class="panel">
+    <div class="panel rocket-panel" id="rocketPanel">
+      <img src="img/rocket.gif" alt="" class="rocket" id="rocket">
 
       <!-- NADPIS + GOOGLE PLAY -->
       <div class="title-row">
@@ -73,6 +74,80 @@
   </div>
 
   <script src="lightbox.js" defer></script>
+
+  <script>
+    (function () {
+      var rocket = document.getElementById('rocket');
+      var panel = document.getElementById('rocketPanel');
+      var ROCK = { w: 44, h: 44 };
+      var DT = 1 / 60;
+      var X = [], Y = [], ANG = [], N = 0, P = 30, t = 0, last = 0;
+
+      function rand(a, b) { return a + Math.random() * (b - a); }
+
+      function precompute() {
+        var r = panel.getBoundingClientRect();
+        var w = r.width, h = r.height;
+        var m = 10;
+        var x0 = m, x1 = w - ROCK.w - m;
+        var y0 = m, y1 = h - ROCK.h - m;
+        if (x1 <= x0 || y1 <= y0) return;
+        var cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+        var Ax = (x1 - x0) / 2 * 0.85;
+        var Ay = (y1 - y0) / 2 * 0.85;
+        var pairs = [[1, 2], [1, 3], [2, 3], [2, 5]];
+        var f = pairs[Math.floor(Math.random() * pairs.length)];
+        var fx = f[0], fy = f[1];
+        var px = rand(0, Math.PI * 2), py = rand(0, Math.PI * 2);
+        P = rand(30, 38);
+        N = Math.ceil(P / DT);
+        X = new Array(N);
+        Y = new Array(N);
+        ANG = new Array(N);
+        for (var i = 0; i < N; i++) {
+          var u = 2 * Math.PI * (i * DT) / P;
+          X[i] = cx + Ax * Math.sin(fx * u + px);
+          Y[i] = cy + Ay * Math.sin(fy * u + py);
+        }
+        for (i = 0; i < N; i++) {
+          var n = (i + 1) % N;
+          ANG[i] = Math.atan2(Y[n] - Y[i], X[n] - X[i]) * 180 / Math.PI + 90;
+        }
+        t = 0;
+      }
+
+      function step(now) {
+        var dt = Math.min(0.05, (now - last) / 1000 || 0.016);
+        last = now;
+        t += dt;
+        if (t >= P) t -= P;
+        if (N > 1) {
+          var pos = (t / DT) % N;
+          var i = Math.floor(pos);
+          var f = pos - i;
+          var n = (i + 1) % N;
+          var x = X[i] + (X[n] - X[i]) * f;
+          var y = Y[i] + (Y[n] - Y[i]) * f;
+          rocket.style.transform =
+            'translate(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px) rotate(' + ANG[i].toFixed(1) + 'deg)';
+        }
+        requestAnimationFrame(step);
+      }
+
+      function init() {
+        ROCK.w = Math.min(rocket.naturalWidth || 44, 44) * 3;
+        ROCK.h = Math.min(rocket.naturalHeight || 44, 44) * 3;
+        rocket.style.width = ROCK.w + 'px';
+        precompute();
+        requestAnimationFrame(step);
+      }
+
+      window.addEventListener('load', init);
+      window.addEventListener('resize', function () {
+        if (N) precompute();
+      });
+    })();
+  </script>
 
 </body>
 </html>

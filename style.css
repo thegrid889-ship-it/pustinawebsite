@@ -216,6 +216,21 @@ nav a.active {
   max-width: 520px;
 }
 
+/* ========== ROCKET (COSMIC MUSHROOMS) ========== */
+.rocket-panel {
+  position: relative;
+}
+
+.rocket {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+  will-change: transform;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+}
+
 .project-images {
   flex: 1;
   display: grid;
@@ -243,7 +258,6 @@ nav a.active {
   width: 200px;
   height: 150px;
   object-fit: cover;
-  border: 4px solid #3fa9f5;
 }
 
 .project a {
@@ -284,6 +298,40 @@ nav a.active {
   height: auto;
   max-width: none;
   display: block;
+}
+
+/* ========== BOMBERMAN (SKILLS) ========== */
+.bomber-panel {
+  position: relative;
+}
+
+#bomberCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+/* ========== GAME LAYERS (SNAKE/TETRIS) ========== */
+.snake-panel,
+.tetris-panel {
+  position: relative;
+}
+
+#snakeCanvas,
+#tetrisCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  image-rendering: pixelated;
 }
 
 /* ========== LIGHTBOX ========== */
