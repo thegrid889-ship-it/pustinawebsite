@@ -190,8 +190,9 @@ nav a.active {
 /* ========== TITLE ROW (detail pages) ========== */
 .title-row {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
 
 .title-row h1 {
@@ -208,12 +209,17 @@ nav a.active {
   display: flex;
   gap: 40px;
   margin-top: 32px;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.project-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .project-text {
-  flex: 1;
   max-width: 520px;
+  margin-top: 16px;
 }
 
 /* ========== ROCKET (COSMIC MUSHROOMS) ========== */
@@ -410,14 +416,17 @@ body:not(:has(#home)) .current-page {
     width: clamp(220px, 70vw, 420px);
   }
 
-  .title-row {
+  .project-layout {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .project-layout {
-    flex-direction: column;
-    align-items: flex-start;
+  .project-info {
+    order: 1;
+  }
+
+  .project-images {
+    order: 2;
   }
 
   .project-text {
