@@ -21,12 +21,22 @@ nav {
   top: 0;
   width: 100%;
   background: #000c;
-  padding: 15px 0;
+  border-bottom: 3px solid #3fa9f5;
+  padding: 12px 0;
   text-align: center;
   z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* CRT scanlines over the nav bar */
+nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0, 0, 0, 0.3) 2px 4px);
 }
 
 /* Hamburger icon (only visible on mobile for index) */
@@ -37,12 +47,14 @@ nav {
   gap: 5px;
   position: absolute;
   left: 20px;
+  z-index: 1;
 }
 
 .hamburger span {
   width: 30px;
   height: 3px;
-  background: #f5d76e;
+  background: #3fa9f5;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Current page indicator (only visible on mobile for index) */
@@ -50,6 +62,8 @@ nav {
   display: none;
   color: #f5d76e;
   font-size: 18px;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 #7a6a2e;
 }
 
 /* Navigation menu container */
@@ -59,26 +73,45 @@ nav {
   align-items: center;
 }
 
-/* All navigation links */
+/* All navigation links - arcade buttons */
 nav a {
   color: #f5d76e;
-  margin: 0 8px;
+  margin: 0 6px;
   text-decoration: none;
-  font-size: 18px;
-  padding: 8px 10px;
+  font-size: 17px;
+  letter-spacing: 2px;
+  padding: 9px 16px;
   display: inline-block;
-  font-weight: normal;
+  border: 2px solid #f5d76e;
+  background: #111;
+  box-shadow: 0 4px 0 #7a6a2e;
+  transition: transform 0.1s, box-shadow 0.1s, background 0.15s, color 0.15s;
 }
 
+/* Pressed in on hover */
 nav a:hover {
-  color: #fff;
-  text-shadow: 0 0 8px #f5d76e;
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #7a6a2e;
+  background: #f5d76e;
+  color: #000;
 }
 
+/* Selected menu option */
 nav a.active {
-  color: #fff;
-  text-shadow: 0 0 12px #f5d76e;
-  border-bottom: 2px solid #f5d76e;
+  background: #f5d76e;
+  color: #000;
+  box-shadow: 0 4px 0 #7a6a2e, inset 0 0 14px rgba(255, 255, 255, 0.35);
+}
+
+/* Blinking game cursor on the active item */
+nav a.active::before {
+  content: '▶';
+  margin-right: 8px;
+  animation: blinkCursor 1s steps(1) infinite;
+}
+
+@keyframes blinkCursor {
+  50% { opacity: 0; }
 }
 
 /* ========== SECTIONS ========== */
@@ -275,6 +308,10 @@ nav a.active {
   border: 2px solid #3fa9f5;
   border-bottom: none;
   cursor: pointer;
+  touch-action: manipulation;
+  min-height: 42px;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .tab:hover {
@@ -288,11 +325,31 @@ nav a.active {
 
 .tab-content {
   margin-top: 20px;
-  min-height: 400px;
+}
+
+.tab-wrapper {
+  display: grid;
+  margin-top: 20px;
+}
+
+.tab-wrapper > .tab-content {
+  grid-row: 1;
+  grid-column: 1;
+  margin-top: 0;
+}
+
+.tab-wrapper > .tab-content[hidden] {
+  display: block !important;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .tab-content .project {
   margin-top: 0;
+}
+
+.tab-content .project:last-child {
+  margin-bottom: 0;
 }
 
 .project {
@@ -462,19 +519,21 @@ body:not(:has(#home)) .current-page {
   .project {
     flex-direction: column;
     text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .project.align-top {
+    align-items: center;
   }
 
   .tabs {
-    flex-wrap: wrap;
+    gap: 4px;
   }
 
   .tab {
-    padding: 8px 14px;
+    padding: 10px 16px;
     font-size: 14px;
-  }
-
-  .tab-content {
-    min-height: 300px;
+    min-height: 40px;
   }
 
   .contact-layout {
@@ -505,7 +564,7 @@ body:not(:has(#home)) .current-page {
 
   /* MOBILE NAVIGATION - INDEX ONLY */
   nav {
-    height: 46px;
+    height: 62px;
     padding: 0;
   }
 
@@ -513,8 +572,16 @@ body:not(:has(#home)) .current-page {
     display: flex;
   }
 
+  /* Page name styled like the arcade buttons */
   body:has(#home) .current-page {
     display: block;
+    border: 2px solid #f5d76e;
+    background: #111;
+    color: #f5d76e;
+    box-shadow: 0 4px 0 #7a6a2e;
+    font-size: 24px;
+    letter-spacing: 2px;
+    padding: 10px 16px;
     transition: opacity 0.3s;
   }
 
@@ -527,7 +594,7 @@ body:not(:has(#home)) .current-page {
   body:has(#home) .nav-menu {
     position: fixed;
     left: -100%;
-    top: 46px;
+    top: 62px;
     flex-direction: column;
     background: #000c;
     width: 100%;
@@ -540,9 +607,13 @@ body:not(:has(#home)) .current-page {
     left: 0;
   }
 
+  /* Uniform button width in the dropdown */
   body:has(#home) nav a {
+    display: block;
+    width: min(320px, 80%);
+    margin: 8px auto;
     font-size: 24px;
-    margin: 8px 0;
-    padding: 12px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
   }
 }

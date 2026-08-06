@@ -90,12 +90,18 @@ function activatePortfolioTab(tab) {
   portfolioTabContents.forEach(content => {
     content.hidden = content.id !== 'tab-' + tab.dataset.tab;
   });
+  const panel = document.querySelector('.snake-panel');
+  if (panel) panel.dispatchEvent(new CustomEvent('tabChanged'));
 }
 
 portfolioTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
+  tab.addEventListener('click', (e) => {
+    e.preventDefault();
     activatePortfolioTab(tab);
     history.replaceState(null, '', '#' + tab.dataset.tab);
+    if (window.innerWidth <= 768) {
+      document.getElementById('portfolio').scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
   });
 });
 
@@ -730,7 +736,7 @@ function initSnake() {
 
   function computeObstacles() {
     obsSet = new Set();
-    const imgs = panel.querySelectorAll('.project > img');
+    const imgs = panel.querySelectorAll('.tab-content:not([hidden]) .project > img');
     if (!imgs.length) return;
     const cr = panel.getBoundingClientRect();
     const inflate = cell * 0.6;
@@ -782,8 +788,26 @@ function initSnake() {
   }
 
   function reset() {
-    const cx = Math.floor(cols / 2), cy = Math.floor(rows / 2);
-    snake = [{ x: cx, y: cy }, { x: cx - 1, y: cy }, { x: cx - 2, y: cy }];
+    let startFound = false;
+    let sx = 0, sy = 0;
+    for (let y = rows - 1; y >= 0 && !startFound; y--) {
+      for (let x = cols - 1; x >= 2; x--) {
+        if (!obsSet.has(x + ',' + y) && !obsSet.has((x - 1) + ',' + y) && !obsSet.has((x - 2) + ',' + y)) {
+          sx = x; sy = y;
+          startFound = true;
+          break;
+        }
+      }
+    }
+    if (!startFound) {
+      state = 'over';
+      stateT = 1.8;
+      snake = [];
+      score = 0;
+      apple = null;
+      return;
+    }
+    snake = [{ x: sx, y: sy }, { x: sx - 1, y: sy }, { x: sx - 2, y: sy }];
     dir = { x: 1, y: 0 };
     nextDir = { x: 1, y: 0 };
     score = 0;
@@ -823,9 +847,25 @@ function initSnake() {
   function step() {
     dir = nextDir;
     const head = snake[0];
-    const nx = head.x + dir.x, ny = head.y + dir.y;
+    let nx = head.x + dir.x, ny = head.y + dir.y;
+
+    if (obsSet.has(nx + ',' + ny)) {
+      const alts = [
+        { x: 1, y: 0 }, { x: -1, y: 0 }, { x: 0, y: 1 }, { x: 0, y: -1 }
+      ].filter(d => !(d.x === -dir.x && d.y === -dir.y));
+      let found = false;
+      for (const d of alts) {
+        const ax = head.x + d.x, ay = head.y + d.y;
+        if (ax >= 0 && ay >= 0 && ax < cols && ay < rows && !obsSet.has(ax + ',' + ay) && !snake.some(seg => seg.x === ax && seg.y === ay)) {
+          nx = ax; ny = ay; dir = d; nextDir = d;
+          found = true;
+          break;
+        }
+      }
+      if (!found) return;
+    }
+
     if (nx < 0 || ny < 0 || nx >= cols || ny >= rows) { gameOver(); return; }
-    if (obsSet.has(nx + ',' + ny)) { gameOver(); return; }
     const eating = apple && nx === apple.x && ny === apple.y;
     const bodyToCheck = eating ? snake : snake.slice(0, -1);
     if (bodyToCheck.some(seg => seg.x === nx && seg.y === ny)) { gameOver(); return; }
@@ -913,9 +953,10 @@ function initSnake() {
   }
 
   resize();
-  const cimg = panel.querySelector('.project > img');
-  if (cimg && !cimg.complete) cimg.addEventListener('load', computeObstacles);
+  const cimg = panel.querySelector('.tab-content:not([hidden]) .project > img');
+  if (cimg && !cimg.complete) cimg.addEventListener('load', () => { computeObstacles(); reset(); });
   window.addEventListener('resize', resize);
+  panel.addEventListener('tabChanged', computeObstacles);
   requestAnimationFrame(frame);
 
   if ('IntersectionObserver' in window) {
