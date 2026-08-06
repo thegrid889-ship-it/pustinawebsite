@@ -10,6 +10,11 @@ body {
   background: #000;
 }
 
+/* ========== HEADINGS (unified across pages) ========== */
+h1, h2, h3 {
+  font-size: 26px;
+}
+
 /* ========== NAVIGATION ========== */
 nav {
   position: fixed;
@@ -253,6 +258,43 @@ nav a.active {
 }
 
 /* ========== PROJECTS (index portfolio section) ========== */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-top: 20px;
+  border-bottom: 3px solid #3fa9f5;
+}
+
+.tab {
+  padding: 10px 22px;
+  font-size: 16px;
+  font-family: inherit;
+  letter-spacing: 1px;
+  color: #3fa9f5;
+  background: transparent;
+  border: 2px solid #3fa9f5;
+  border-bottom: none;
+  cursor: pointer;
+}
+
+.tab:hover {
+  background: rgba(63, 169, 245, 0.15);
+}
+
+.tab.active {
+  background: #3fa9f5;
+  color: #000;
+}
+
+.tab-content {
+  margin-top: 20px;
+  min-height: 400px;
+}
+
+.tab-content .project {
+  margin-top: 0;
+}
+
 .project {
   display: flex;
   gap: 20px;
@@ -260,10 +302,20 @@ nav a.active {
   align-items: center;
 }
 
+.project.align-top {
+  align-items: flex-start;
+}
+
 .project img {
   width: 200px;
   height: 150px;
   object-fit: cover;
+}
+
+.project img.uncropped {
+  width: 200px;
+  height: auto;
+  object-fit: contain;
 }
 
 .project a {
@@ -383,6 +435,11 @@ body:not(:has(#home)) .current-page {
 
 /* ========== MOBILE ========== */
 @media (max-width: 768px) {
+  /* Headings smaller on mobile, but same across all pages */
+  h1, h2, h3 {
+    font-size: 22px;
+  }
+
   /* Panel spacing on mobile */
   .section {
     padding-left: 16px;
@@ -405,6 +462,19 @@ body:not(:has(#home)) .current-page {
   .project {
     flex-direction: column;
     text-align: center;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .tab-content {
+    min-height: 300px;
   }
 
   .contact-layout {

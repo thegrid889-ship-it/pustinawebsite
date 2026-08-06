@@ -76,6 +76,38 @@ window.addEventListener('wheel', (e) => {
   }, 900);
 }, { passive: false });
 
+// Portfolio tabs
+const portfolioTabs = document.querySelectorAll('.tab');
+const portfolioTabContents = document.querySelectorAll('.tab-content');
+
+function activatePortfolioTab(tab) {
+  portfolioTabs.forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  tab.classList.add('active');
+  tab.setAttribute('aria-selected', 'true');
+  portfolioTabContents.forEach(content => {
+    content.hidden = content.id !== 'tab-' + tab.dataset.tab;
+  });
+}
+
+portfolioTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    activatePortfolioTab(tab);
+    history.replaceState(null, '', '#' + tab.dataset.tab);
+  });
+});
+
+window.addEventListener('hashchange', () => {
+  const hash = location.hash.replace('#', '');
+  const tab = Array.from(portfolioTabs).find(t => t.dataset.tab === hash);
+  if (tab) activatePortfolioTab(tab);
+});
+
+const initialTab = Array.from(portfolioTabs).find(t => t.dataset.tab === location.hash.replace('#', '')) || portfolioTabs[0];
+activatePortfolioTab(initialTab);
+
 // Pac-Man runner circling the home panel, chomping a coin
 async function initPacman() {
   const panel = document.getElementById('homePanel');

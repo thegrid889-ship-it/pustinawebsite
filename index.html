@@ -41,23 +41,42 @@
     <canvas id="snakeCanvas" width="900" height="500"></canvas>
     <h2>PORTFOLIO</h2>
 
-    <div class="project">
-      <img src="img/portfolio/CosmicE.webp" alt="COSMIC MUSHROOMS">
-      <div class="text">
-        <h3>COSMIC MUSHROOMS (Personal indie project)</h3>
-        <p>A physics-based 3D isometric space game where you control a rocket and navigate through 24 handcrafted levels.</p>
-        <a href="COSMICMUSHROOMS.html">DETAIL</a>
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="games" role="tab" aria-selected="true">GAMES</button>
+      <button class="tab" data-tab="apps" role="tab" aria-selected="false">APPS</button>
+      <button class="tab" data-tab="addons" role="tab" aria-selected="false">ADD-ONS</button>
+    </div>
+
+    <div class="tab-content" id="tab-games">
+      <div class="project">
+        <img src="img/portfolio/CosmicE.webp" alt="COSMIC MUSHROOMS">
+        <div class="text">
+          <h3>COSMIC MUSHROOMS (Personal indie project)</h3>
+          <p>A physics-based 3D isometric space game where you control a rocket and navigate through 24 handcrafted levels.</p>
+          <a href="COSMICMUSHROOMS.html">DETAIL</a>
+        </div>
+      </div>
+
+      <div class="project">
+        <img src="img/portfolio/MM_A.jpg" alt="Project Two">
+        <div class="text">
+          <h3>MAGIC MADNESS VR (Company work)</h3>
+          <p>Magic Madness VR is a VR PvP arena for up to four players, focused on fast, skill-based combat using five elements in evolving arenas.</p>
+          <a href="magicmadness.html">DETAIL</a>
+        </div>
       </div>
     </div>
 
-    <div class="project">
-      <img src="img/portfolio/MM_A.jpg" alt="Project Two">
-      <div class="text">
-        <h3>MAGIC MADNESS VR (Company work)</h3>
-        <p>Magic Madness VR is a VR PvP arena for up to four players, focused on fast, skill-based combat using five elements in evolving arenas.</p>
-        <a href="magicmadness.html">DETAIL</a>
+    <div class="tab-content" id="tab-apps" hidden>
+      <div class="project align-top">
+        <img class="uncropped" src="img/portfolio/VerbaCards.png" alt="VERBA CARDS">
+        <div class="text">
+          <h3>VERBA CARDS</h3>
+          <p>Description coming soon.</p>
+        </div>
       </div>
     </div>
+    <div class="tab-content" id="tab-addons" hidden></div>
 
   </div>
 </section>
