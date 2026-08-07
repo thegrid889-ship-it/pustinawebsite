@@ -824,32 +824,39 @@ function initSnake() {
   }
 
   function pickDir() {
+    const head = snake[0];
+    const stuck = obsSet.has(head.x + ',' + head.y);
     const cands = [
       { x: 1, y: 0 }, { x: -1, y: 0 }, { x: 0, y: 1 }, { x: 0, y: -1 }
     ].filter(d => !(d.x === -dir.x && d.y === -dir.y));
-    const head = snake[0];
     let best = null, bestD = Infinity;
+    let bestEscape = null, bestEscapeD = Infinity;
     cands.forEach(d => {
       const nx = head.x + d.x, ny = head.y + d.y;
       if (nx < 0 || ny < 0 || nx >= cols || ny >= rows) return;
-      if (obsSet.has(nx + ',' + ny)) return;
       if (snake.some(seg => seg.x === nx && seg.y === ny)) return;
+      const blocked = obsSet.has(nx + ',' + ny);
       const dd = Math.hypot(nx - apple.x, ny - apple.y) + rand(0, 0.6);
-      if (dd < bestD) { bestD = dd; best = d; }
+      if (!blocked && dd < bestD) { bestD = dd; best = d; }
+      if (stuck && dd < bestEscapeD) { bestEscapeD = dd; bestEscape = d; }
     });
-    if (!best) {
-      nextDir = cands[Math.floor(Math.random() * cands.length)];
-    } else {
+    if (best) {
       nextDir = best;
+    } else if (stuck && bestEscape) {
+      // Snake ended up inside an obstacle (e.g. after switching tabs) - let it leave, never enter deliberately.
+      nextDir = bestEscape;
+    } else {
+      nextDir = cands[Math.floor(Math.random() * cands.length)];
     }
   }
 
   function step() {
     dir = nextDir;
     const head = snake[0];
+    const wasStuck = obsSet.has(head.x + ',' + head.y);
     let nx = head.x + dir.x, ny = head.y + dir.y;
 
-    if (obsSet.has(nx + ',' + ny)) {
+    if (!wasStuck && obsSet.has(nx + ',' + ny)) {
       const alts = [
         { x: 1, y: 0 }, { x: -1, y: 0 }, { x: 0, y: 1 }, { x: 0, y: -1 }
       ].filter(d => !(d.x === -dir.x && d.y === -dir.y));
