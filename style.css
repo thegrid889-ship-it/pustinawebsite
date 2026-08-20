@@ -470,6 +470,55 @@ nav a.active::before {
   border-radius: 6px;
 }
 
+#lightboxVideo {
+  display: none;
+  aspect-ratio: 16 / 9;
+  width: min(90vw, calc(90vh * 16 / 9));
+  max-width: 960px;
+  border: none;
+  border-radius: 6px;
+}
+
+#lightboxVideo.active {
+  display: block;
+}
+
+.video-thumb {
+  position: relative;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0;
+}
+
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-left: 26px solid #fff;
+  border-top: 17px solid transparent;
+  border-bottom: 17px solid transparent;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.85));
+  opacity: 0.95;
+  transition: opacity 0.2s;
+}
+
+.video-thumb:hover .video-play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
 .lightbox-close {
   position: absolute;
   top: 20px;
