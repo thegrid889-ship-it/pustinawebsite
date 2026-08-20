@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (videoId && lightboxVideo) {
         lightboxImg.style.display = 'none';
         lightboxVideo.classList.add('active');
-        lightboxVideo.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
+        lightboxVideo.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1';
       } else {
         if (lightboxVideo) {
           lightboxVideo.classList.remove('active');
